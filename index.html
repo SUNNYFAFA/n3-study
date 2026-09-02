@@ -179,6 +179,7 @@
   }
 
   /* ---- Kana chart ---- */
+  .kana-quiz-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
   .kana-toolbar {
     display: flex; align-items: center; gap: 10px;
     margin-bottom: 18px; flex-wrap: wrap;
@@ -366,10 +367,13 @@
   .pill.new { background: var(--indigo-soft); color: var(--indigo); }
   .pill.mastered { background: var(--moss-soft); color: var(--moss); }
   .deck-card .mini-btn {
-    margin-top: auto; background: var(--surface-sunken); border: 1px solid var(--border);
+    background: var(--surface-sunken); border: 1px solid var(--border);
     color: var(--ink); border-radius: 9px; padding: 8px 10px; font-size: 13px;
     font-weight: 600; cursor: pointer; font-family: inherit;
   }
+  .deck-card-btn-row { display: flex; gap: 8px; margin-top: auto; }
+  .deck-card-btn-row .mini-btn { flex: 1; }
+  .mini-btn.ghost { background: transparent; border: 1px solid var(--indigo); color: var(--indigo); }
 
   /* ---- Home: quiz / wrong-review action cards ---- */
   .action-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; margin-bottom: 22px; }
@@ -1190,10 +1194,10 @@ const DECK_ICO = { kana:'あ', kanji:'漢', vocab:'語', grammar:'文' };
 function buildAllCards() {
   const cards = [];
   Object.keys(HIRAGANA_MAP).forEach((r, i) => {
-    cards.push({ id: 'kana_h_'+r, deck: 'kana', front: HIRAGANA_MAP[r], back: romajiLabel(r) + ' · 히라가나', short: romajiLabel(r), dayBucket: (i % 7) + 1 });
+    cards.push({ id: 'kana_h_'+r, deck: 'kana', script: 'hira', front: HIRAGANA_MAP[r], back: romajiLabel(r) + ' · 히라가나', short: romajiLabel(r), dayBucket: (i % 7) + 1 });
   });
   Object.keys(KATAKANA_MAP).forEach((r, i) => {
-    cards.push({ id: 'kana_k_'+r, deck: 'kana', front: KATAKANA_MAP[r], back: romajiLabel(r) + ' · 가타카나', short: romajiLabel(r), dayBucket: (i % 7) + 1 });
+    cards.push({ id: 'kana_k_'+r, deck: 'kana', script: 'kata', front: KATAKANA_MAP[r], back: romajiLabel(r) + ' · 가타카나', short: romajiLabel(r), dayBucket: (i % 7) + 1 });
   });
   KANJI.forEach((k, i) => cards.push({
     id: k.id, deck: 'kanji', front: k.ch,
@@ -1470,6 +1474,7 @@ function renderNav() {
     el.addEventListener('click', () => {
       currentTab = el.dataset.tab;
       viewMode = 'normal';
+      if (activeSessionKeyHandler) { document.removeEventListener('keydown', activeSessionKeyHandler); activeSessionKeyHandler = null; }
       renderNav();
       renderPage();
     });
@@ -1537,6 +1542,11 @@ function renderKanaPage(main) {
         로마자 숨기기 (클릭해서 확인)
       </label>
     </div>
+    <div class="kana-quiz-row">
+      <button class="mini-btn" id="quizHiraBtn">📝 히라가나 퀴즈</button>
+      <button class="mini-btn" id="quizKataBtn">📝 가타카나 퀴즈</button>
+      <button class="mini-btn ghost" id="quizKanaAllBtn">📝 가나 전체 퀴즈</button>
+    </div>
     ${kanaBlockHtml('기본 46자', KANA_BASE_ROWS, map, 5)}
     ${kanaBlockHtml('탁음・반탁음', KANA_DAKU_ROWS, map, 5)}
     ${kanaBlockHtml('요음 (拗音)', KANA_YOON_ROWS, map, 3)}
@@ -1552,6 +1562,9 @@ function renderKanaPage(main) {
     kanaHideRomaji = e.target.checked;
     renderKanaPage(main);
   });
+  main.querySelector('#quizHiraBtn').addEventListener('click', () => startQuiz(main, { deck: 'kana', script: 'hira' }));
+  main.querySelector('#quizKataBtn').addEventListener('click', () => startQuiz(main, { deck: 'kana', script: 'kata' }));
+  main.querySelector('#quizKanaAllBtn').addEventListener('click', () => startQuiz(main, { deck: 'kana' }));
   if (kanaHideRomaji) {
     main.querySelectorAll('.kana-cell.hidden-rj').forEach(cell => {
       cell.addEventListener('click', () => cell.classList.toggle('revealed'));
@@ -1780,7 +1793,10 @@ function deckSummaryCardHtml(deck) {
         <span class="pill new">신규 ${s.new}</span>
         <span class="pill mastered">완료 ${s.mastered}</span>
       </div>
-      <button class="mini-btn" data-deck="${deck}">${DECK_LABELS[deck]}만 학습하기</button>
+      <div class="deck-card-btn-row">
+        <button class="mini-btn" data-deck="${deck}">${DECK_LABELS[deck]}만 학습하기</button>
+        <button class="mini-btn ghost" data-quiz-deck="${deck}">퀴즈</button>
+      </div>
     </div>`;
 }
 
@@ -1820,7 +1836,7 @@ function renderHomePage(main) {
         <div class="ah">📝 오늘의 퀴즈</div>
         <p>4지선다로 빠르게 실력 점검</p>
         ${metaData.lastQuizDate === todayIdx() ? `<span class="done-tag">오늘 완료 · ${metaData.lastQuizScore}</span>` : ''}
-        <button class="mini-btn" id="startQuizBtn">퀴즈 시작 (10문제)</button>
+        <button class="mini-btn" id="startQuizBtn">전체 퀴즈 시작 (10문제)</button>
       </div>
       <div class="action-card" id="wrongAction">
         <div class="ah">🔁 오답 복습</div>
@@ -1908,8 +1924,11 @@ function renderHomePage(main) {
   main.querySelector('#startAllBtn').addEventListener('click', () => startSession(null, 'srs'));
   main.querySelector('#startQuizBtn')?.addEventListener('click', () => startQuiz(main));
   main.querySelector('#startWrongBtn')?.addEventListener('click', () => startSession(null, 'wrong'));
-  main.querySelectorAll('.deck-cards .mini-btn').forEach(btn => {
+  main.querySelectorAll('.deck-cards [data-deck]').forEach(btn => {
     btn.addEventListener('click', () => startSession(btn.dataset.deck, 'srs'));
+  });
+  main.querySelectorAll('.deck-cards [data-quiz-deck]').forEach(btn => {
+    btn.addEventListener('click', () => startQuiz(main, { deck: btn.dataset.quizDeck }));
   });
   main.querySelectorAll('.cycle-day-btn').forEach(btn => {
     btn.addEventListener('click', () => startSession(null, 'cycle', parseInt(btn.dataset.day, 10)));
@@ -1946,8 +1965,10 @@ function grammarExampleHtml(card) {
     </div>`;
 }
 
+let activeSessionKeyHandler = null;
 function renderStudySession(main) {
   if (!session || session.pos >= session.cards.length) { renderSessionDone(main); return; }
+  session.revealed = false;
   const card = session.cards[session.pos];
   const pct = (session.pos / session.cards.length) * 100;
   main.innerHTML = `
@@ -1994,39 +2015,47 @@ function renderStudySession(main) {
     });
   });
 
-  function keyHandler(e) {
-    if (viewMode !== 'session') { document.removeEventListener('keydown', keyHandler); return; }
+  if (activeSessionKeyHandler) document.removeEventListener('keydown', activeSessionKeyHandler);
+  activeSessionKeyHandler = function keyHandler(e) {
+    if (viewMode !== 'session') { document.removeEventListener('keydown', keyHandler); activeSessionKeyHandler = null; return; }
     if (!session.revealed && e.code === 'Space') { e.preventDefault(); reveal(); return; }
     if (session.revealed && ['1','2','3','4'].includes(e.key)) {
       const map = {1:'again',2:'hard',3:'good',4:'easy'};
       main.querySelector(`.grade-btn[data-g="${map[e.key]}"]`)?.click();
     }
-  }
-  document.addEventListener('keydown', keyHandler);
+  };
+  document.addEventListener('keydown', activeSessionKeyHandler);
 }
 
 // ==================== DAILY QUIZ ====================
 let quizState = null; // { questions, pos, score }
 
-function buildQuizQuestion(card) {
-  const sameDeck = ALL_CARDS.filter(c => c.deck === card.deck && c.id !== card.id);
-  const distractors = shuffle(sameDeck).slice(0, 3).map(c => c.short);
-  const options = shuffle([card.short, ...distractors]);
+function matchesFilter(card, filter) {
+  if (!filter) return true;
+  if (filter.deck && card.deck !== filter.deck) return false;
+  if (filter.script && card.script !== filter.script) return false;
+  return true;
+}
+function buildQuizQuestion(card, filter) {
+  const sameGroup = ALL_CARDS.filter(c => c.deck === card.deck && c.id !== card.id && matchesFilter(c, filter));
+  const distractors = shuffle(sameGroup).slice(0, 3).map(c => c.short);
+  const options = shuffle([card.short, ...new Set(distractors)]);
   return { card, options, correct: card.short };
 }
-function buildQuiz(n) {
+function buildQuiz(n, filter) {
   n = n || 10;
-  const wrong = wrongQueueCards();
-  const seen = ALL_CARDS.filter(c => progressMap.has(c.id) && !isInWrongQueue(c));
+  const scoped = ALL_CARDS.filter(c => matchesFilter(c, filter));
+  const wrong = scoped.filter(isInWrongQueue);
+  const seen = scoped.filter(c => progressMap.has(c.id) && !isInWrongQueue(c));
   let pool = [...shuffle(wrong), ...shuffle(seen)];
-  if (pool.length < n) pool = pool.concat(shuffle(ALL_CARDS.filter(c => !pool.includes(c))));
-  return pool.slice(0, n).map(buildQuizQuestion);
+  if (pool.length < n) pool = pool.concat(shuffle(scoped.filter(c => !pool.includes(c))));
+  return pool.slice(0, n).map(c => buildQuizQuestion(c, filter));
 }
 
-function startQuiz(main) {
-  const questions = buildQuiz(10);
+function startQuiz(main, filter) {
+  const questions = buildQuiz(10, filter);
   if (questions.length === 0) return;
-  quizState = { questions, pos: 0, score: 0, answered: false };
+  quizState = { questions, pos: 0, score: 0, answered: false, filter };
   viewMode = 'quiz';
   renderNav();
   renderPage();
@@ -2102,6 +2131,7 @@ function renderQuizDone(main) {
 }
 
 function renderSessionDone(main) {
+  if (activeSessionKeyHandler) { document.removeEventListener('keydown', activeSessionKeyHandler); activeSessionKeyHandler = null; }
   const total = session ? session.cards.length : 0;
   const mode = session ? session.mode : 'srs';
   if (mode === 'cycle' && session.cycleDay != null) {
