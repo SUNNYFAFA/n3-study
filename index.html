@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
 <!-- 홈 화면에 앱처럼 추가하기 위한 PWA 메타데이터 -->
 <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoi7J2867O47Ja0IE4zIOuLpOyngOq4sCIsInNob3J0X25hbWUiOiJOMyDri6Tsp4DquLAiLCJzdGFydF91cmwiOiIuL2luZGV4Lmh0bWwiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjRjJFREUxIiwidGhlbWVfY29sb3IiOiIjMkM0QTZFIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0F4T1RJZ01Ua3lJajQ4Y21WamRDQjNhV1IwYUQwaU1Ua3lJaUJvWldsbmFIUTlJakU1TWlJZ2NuZzlJalF3SWlCbWFXeHNQU0lqTWtNMFFUWkZJaTgrUEhSbGVIUWdlRDBpT1RZaUlIazlJakV6TWlJZ1ptOXVkQzFtWVcxcGJIazlJa2RsYjNKbmFXRXNJQ2RPYjNSdklGTmxjbWxtSnl3Z2MyVnlhV1lpSUdadmJuUXRjMmw2WlQwaU1URTRJaUJtYVd4c1BTSWpSakpGUkVVeElpQjBaWGgwTFdGdVkyaHZjajBpYldsa1pHeGxJajdvcXA0OEwzUmxlSFErUEM5emRtYysiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCIsInB1cnBvc2UiOiJhbnkgbWFza2FibGUifSx7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0F4T1RJZ01Ua3lJajQ4Y21WamRDQjNhV1IwYUQwaU1Ua3lJaUJvWldsbmFIUTlJakU1TWlJZ2NuZzlJalF3SWlCbWFXeHNQU0lqTWtNMFFUWkZJaTgrUEhSbGVIUWdlRDBpT1RZaUlIazlJakV6TWlJZ1ptOXVkQzFtWVcxcGJIazlJa2RsYjNKbmFXRXNJQ2RPYjNSdklGTmxjbWxtSnl3Z2MyVnlhV1lpSUdadmJuUXRjMmw2WlQwaU1URTRJaUJtYVd4c1BTSWpSakpGUkVVeElpQjBaWGgwTFdGdVkyaHZjajBpYldsa1pHeGxJajdvcXA0OEwzUmxlSFErUEM5emRtYysiLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCIsInB1cnBvc2UiOiJhbnkgbWFza2FibGUifV19">
 <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSIjMkM0QTZFIi8+PHRleHQgeD0iOTYiIHk9IjEzMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsICdOb3RvIFNlcmlmJywgc2VyaWYiIGZvbnQtc2l6ZT0iMTE4IiBmaWxsPSIjRjJFREUxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7oqp48L3RleHQ+PC9zdmc+">
@@ -76,7 +76,7 @@
     -webkit-font-smoothing: antialiased;
   }
   .jp { font-family: "Noto Sans JP", "Noto Sans KR", sans-serif; }
-  .display { font-family: "Shippori Mincho", "Noto Sans JP", serif; }
+  .display { font-family: "Noto Sans JP", "Noto Sans KR", sans-serif; font-weight: 700; }
 
   .app {
     display: grid;
@@ -109,13 +109,13 @@
     background: var(--hanko);
     color: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-family: "Shippori Mincho", serif;
+    font-family: "Noto Sans JP", sans-serif;
     font-size: 16px;
     font-weight: 700;
     flex: none;
   }
   .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
-  .brand-text b { font-family: "Shippori Mincho", serif; font-size: 17px; letter-spacing: 0.02em; }
+  .brand-text b { font-family: "Noto Sans KR", sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 0.01em; }
   .brand-text span { font-size: 11px; color: var(--ink-soft); letter-spacing: 0.04em; }
 
   .nav-item {
@@ -140,7 +140,7 @@
     display: flex; flex-direction: column; gap: 6px;
   }
   .streak-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-soft); }
-  .streak-row b { color: var(--hanko); font-size: 16px; font-family: "Shippori Mincho", serif; }
+  .streak-row b { color: var(--hanko); font-size: 16px; font-family: "Noto Sans KR", sans-serif; font-weight: 800; }
 
   .tabbar-mobile {
     display: none;
@@ -160,7 +160,8 @@
   }
   .page-head { margin-bottom: 22px; }
   .page-head h1 {
-    font-family: "Shippori Mincho", serif;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 800;
     font-size: 26px;
     margin: 0 0 6px;
     text-wrap: balance;
@@ -180,6 +181,15 @@
 
   /* ---- Kana chart ---- */
   .kana-quiz-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .kana-drill-panel {
+    background: linear-gradient(135deg, var(--indigo-soft), var(--surface));
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 20px 22px; margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+  .kdp-head { display: flex; flex-direction: column; gap: 4px; max-width: 480px; }
+  .kdp-head b { font-size: 15.5px; }
+  .kdp-head span { font-size: 12.5px; color: var(--ink-soft); }
   .kana-toolbar {
     display: flex; align-items: center; gap: 10px;
     margin-bottom: 18px; flex-wrap: wrap;
@@ -227,7 +237,8 @@
   }
   .kana-cell:hover { background: var(--surface-sunken); }
   .kana-cell .ch {
-    font-family: "Shippori Mincho", serif;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 700;
     font-size: 26px; line-height: 1.1;
     display: block;
   }
@@ -280,7 +291,7 @@
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 4px;
   }
-  .kanji-card .ch { font-family: "Shippori Mincho", serif; font-size: 32px; line-height: 1; }
+  .kanji-card .ch { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 32px; line-height: 1; }
   .kanji-card .rd { font-size: 11px; color: var(--ink-soft); }
   .kanji-card .mean { font-size: 12px; font-weight: 700; color: var(--indigo); display: none; padding: 0 2px; }
   .kanji-card.flipped .rd.on-kun { display: block; }
@@ -318,7 +329,7 @@
     border-radius: 12px; padding: 16px 18px; cursor: pointer;
   }
   .grammar-card-head { display: flex; align-items: baseline; gap: 12px; justify-content: space-between; }
-  .grammar-pattern { font-family: "Shippori Mincho", serif; font-size: 19px; font-weight: 600; }
+  .grammar-pattern { font-family: "Noto Sans JP", sans-serif; font-size: 19px; font-weight: 700; }
   .grammar-mean { font-size: 13.5px; color: var(--ink-soft); text-align: right; }
   .grammar-example {
     display: none; margin-top: 12px; padding-top: 12px;
@@ -343,7 +354,7 @@
     gap: 20px; flex-wrap: wrap;
     margin-bottom: 22px;
   }
-  .home-hero-text b { font-family: "Shippori Mincho", serif; font-size: 20px; display: block; margin-bottom: 4px; }
+  .home-hero-text b { font-family: "Noto Sans KR", sans-serif; font-weight: 800; font-size: 20px; display: block; margin-bottom: 4px; }
   .home-hero-text span { font-size: 13.5px; color: var(--ink-soft); }
   .primary-btn {
     background: var(--indigo); color: #fff; border: none; border-radius: 12px;
@@ -359,7 +370,7 @@
     padding: 18px; display: flex; flex-direction: column; gap: 10px;
   }
   .deck-card .dh { display: flex; align-items: center; gap: 8px; }
-  .deck-card .dh .ico { font-family: "Shippori Mincho", serif; font-size: 20px; color: var(--hanko); }
+  .deck-card .dh .ico { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 20px; color: var(--hanko); }
   .deck-card .dh b { font-size: 15.5px; }
   .deck-card .pill-row { display: flex; gap: 6px; flex-wrap: wrap; }
   .pill { font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
@@ -423,11 +434,19 @@
   .storage-note b { color: var(--moss); }
 
   /* ---- Study session ---- */
-  .session-bar { margin-bottom: 20px; }
-  .session-progress { height: 6px; background: var(--surface-sunken); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
+  .session-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .session-progress { flex: 1; height: 6px; background: var(--surface-sunken); border-radius: 999px; overflow: hidden; }
   .session-progress-fill { height: 100%; background: var(--indigo); border-radius: 999px; transition: width .2s; }
-  .session-meta { font-size: 12.5px; color: var(--ink-soft); text-align: center; }
+  .session-meta { font-size: 12.5px; color: var(--ink-soft); text-align: center; margin-bottom: 16px; }
+  .icon-btn {
+    flex: none; width: 34px; height: 34px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft);
+    font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .icon-btn:hover:not(:disabled) { background: var(--surface-sunken); color: var(--ink); }
+  .icon-btn:disabled { opacity: 0.35; cursor: default; }
 
+  .swipe-stage { position: relative; touch-action: pan-y; }
   .study-card {
     background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
     box-shadow: var(--shadow);
@@ -435,15 +454,29 @@
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center; gap: 18px; padding: 40px 24px; cursor: pointer;
     position: relative;
+    user-select: none; -webkit-user-select: none;
+    will-change: transform;
   }
-  .study-front { font-family: "Shippori Mincho", serif; font-size: 56px; line-height: 1.2; }
+  .study-front { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 56px; line-height: 1.2; }
+  .study-front.is-pair { font-size: 44px; }
+  .study-front .pair-sep { color: var(--ink-soft); font-size: 0.5em; margin: 0 6px; }
   .study-back { display: flex; flex-direction: column; gap: 10px; align-items: center; }
   .study-back-text { font-size: 20px; font-weight: 700; color: var(--indigo); }
   .study-example { margin-top: 4px; padding-top: 14px; border-top: 1px dashed var(--border); width: 100%; max-width: 420px; }
   .study-example .ex-jp { font-size: 15px; margin-bottom: 4px; }
   .study-example .ex-reading { font-size: 12.5px; color: var(--hanko); margin-bottom: 4px; }
   .study-example .ex-kr { font-size: 13px; color: var(--ink-soft); }
-  .tap-hint { position: absolute; bottom: 16px; font-size: 12px; color: var(--ink-soft); }
+  .tap-hint { position: absolute; bottom: 16px; font-size: 11.5px; color: var(--ink-soft); padding: 0 20px; }
+
+  .swipe-tag {
+    position: absolute; top: 18px; font-size: 13px; font-weight: 800; letter-spacing: 0.04em;
+    padding: 5px 12px; border-radius: 8px; opacity: 0; transition: opacity .1s; pointer-events: none;
+    border: 2px solid currentColor;
+  }
+  .swipe-tag-left { left: 18px; color: var(--hanko); transform: rotate(-8deg); }
+  .swipe-tag-right { right: 18px; color: var(--moss); transform: rotate(8deg); }
+  .study-card.tag-left-active .swipe-tag-left { opacity: 1; }
+  .study-card.tag-right-active .swipe-tag-right { opacity: 1; }
 
   .grade-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 18px; }
   .grade-btn {
@@ -461,7 +494,7 @@
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
     box-shadow: var(--shadow); padding: 48px 30px; text-align: center;
   }
-  .session-done .big { font-family: "Shippori Mincho", serif; font-size: 24px; margin-bottom: 10px; }
+  .session-done .big { font-family: "Noto Sans KR", sans-serif; font-weight: 800; font-size: 24px; margin-bottom: 10px; }
 
   /* ---- Quiz ---- */
   .quiz-options { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-top: 20px; }
@@ -490,8 +523,8 @@
   .profile-btn-row { display: flex; gap: 12px; justify-content: center; }
   .profile-btn {
     width: 90px; height: 90px; border-radius: 18px; border: 1px solid var(--border);
-    background: var(--indigo-soft); color: var(--indigo); font-family: "Shippori Mincho", serif;
-    font-size: 24px; font-weight: 700; cursor: pointer;
+    background: var(--indigo-soft); color: var(--indigo); font-family: "Noto Sans KR", sans-serif;
+    font-size: 24px; font-weight: 800; cursor: pointer;
   }
   .profile-btn:hover { background: var(--indigo); color: #fff; }
 
@@ -529,7 +562,7 @@
     padding: 18px;
   }
   .stat-card .label { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 6px; }
-  .stat-card .value { font-family: "Shippori Mincho", serif; font-size: 26px; color: var(--indigo); }
+  .stat-card .value { font-family: "Noto Sans KR", sans-serif; font-weight: 800; font-size: 26px; color: var(--indigo); }
   .bar-track { height: 10px; border-radius: 999px; background: var(--surface-sunken); overflow: hidden; display: flex; margin-top: 8px; }
   .bar-seg.mastered { background: var(--moss); }
   .bar-seg.learning { background: var(--indigo); }
@@ -1304,6 +1337,15 @@ function importProfileCode(code) {
   saveLocalBlob({ cards: payload.cards || {}, meta: payload.meta || {} });
 }
 
+function bumpStudyMeta() {
+  metaData.totalReviews = (metaData.totalReviews || 0) + 1;
+  const t = todayIdx();
+  if (metaData.lastStudyDay !== t) {
+    metaData.streak = (metaData.lastStudyDay === t - 1) ? (metaData.streak || 0) + 1 : 1;
+    metaData.lastStudyDay = t;
+  }
+  saveMeta();
+}
 async function gradeCard(id, grade) {
   const cur = progressMap.get(id) || { box: 0, due: todayIdx(), reps: 0, missCount: 0, correctStreak: 0 };
   const box = nextBox(cur.box ?? 0, grade);
@@ -1313,13 +1355,7 @@ async function gradeCard(id, grade) {
   const correctStreak = isCorrect ? (cur.correctStreak || 0) + 1 : 0;
   const data = { box, due, reps: (cur.reps || 0) + 1, lastGrade: grade, missCount, correctStreak, updatedAt: Date.now() };
   await saveCardProgress(id, data);
-  metaData.totalReviews = (metaData.totalReviews || 0) + 1;
-  const t = todayIdx();
-  if (metaData.lastStudyDay !== t) {
-    metaData.streak = (metaData.lastStudyDay === t - 1) ? (metaData.streak || 0) + 1 : 1;
-    metaData.lastStudyDay = t;
-  }
-  saveMeta();
+  bumpStudyMeta();
   return data;
 }
 
@@ -1353,11 +1389,11 @@ function shuffle(arr) {
   return a;
 }
 
-function buildSession(deckFilter) {
+function buildSession(deckFilter, scriptFilter) {
   const decks = deckFilter ? [deckFilter] : ['kana', 'kanji', 'vocab', 'grammar'];
   let wrong = [], due = [], fresh = [];
   decks.forEach(d => {
-    ALL_CARDS.filter(c => c.deck === d).forEach(c => {
+    ALL_CARDS.filter(c => c.deck === d && (!scriptFilter || c.script === scriptFilter)).forEach(c => {
       if (isInWrongQueue(c)) { wrong.push(c); return; }
       const st = cardStatus(c);
       if (st === 'due') due.push(c);
@@ -1371,6 +1407,18 @@ function buildSession(deckFilter) {
 }
 function buildWrongSession(deckFilter) {
   return shuffle(wrongQueueCards(deckFilter));
+}
+function buildKanaPairSession() {
+  const romajis = Object.keys(HIRAGANA_MAP);
+  const cards = romajis.map(r => ({
+    id: 'kanapair_' + r,
+    deck: 'kana',
+    front: `${HIRAGANA_MAP[r]}<span class="pair-sep">・</span>${KATAKANA_MAP[r]}`,
+    speak: `${HIRAGANA_MAP[r]} ${KATAKANA_MAP[r]}`,
+    back: romajiLabel(r),
+    short: romajiLabel(r),
+  }));
+  return shuffle(cards);
 }
 
 // ---- 7일 회독 (weekly cycle) ----
@@ -1532,6 +1580,13 @@ function renderKanaPage(main) {
       <h1>가나 (ひらがな・カタカナ)</h1>
       <p>기본 46자부터 탁음・반탁음, 요음까지 — 표를 눈에 익히고, 로마자를 숨겨서 스스로 확인해보세요.</p>
     </div>
+    <div class="kana-drill-panel">
+      <div class="kdp-head">
+        <b>🔗 히라가나・가타카나 연동 집중 학습</b>
+        <span>같은 소리의 두 글자를 짝으로 보여줘요. 왼쪽 스와이프(다시)한 카드는 이번 판에서 계속 다시 나와서, 104쌍을 전부 맞힐 때까지 반복하게 돼요.</span>
+      </div>
+      <button class="primary-btn" id="startKanaPairBtn">지금 시작하기 (104쌍)</button>
+    </div>
     <div class="kana-toolbar">
       <div class="seg" id="kanaScriptSeg">
         <button data-v="hira" class="${kanaScript==='hira'?'active':''}">히라가나</button>
@@ -1543,6 +1598,8 @@ function renderKanaPage(main) {
       </label>
     </div>
     <div class="kana-quiz-row">
+      <button class="mini-btn" id="studyHiraBtn">🗂 히라가나 학습</button>
+      <button class="mini-btn" id="studyKataBtn">🗂 가타카나 학습</button>
       <button class="mini-btn" id="quizHiraBtn">📝 히라가나 퀴즈</button>
       <button class="mini-btn" id="quizKataBtn">📝 가타카나 퀴즈</button>
       <button class="mini-btn ghost" id="quizKanaAllBtn">📝 가나 전체 퀴즈</button>
@@ -1565,6 +1622,9 @@ function renderKanaPage(main) {
   main.querySelector('#quizHiraBtn').addEventListener('click', () => startQuiz(main, { deck: 'kana', script: 'hira' }));
   main.querySelector('#quizKataBtn').addEventListener('click', () => startQuiz(main, { deck: 'kana', script: 'kata' }));
   main.querySelector('#quizKanaAllBtn').addEventListener('click', () => startQuiz(main, { deck: 'kana' }));
+  main.querySelector('#studyHiraBtn').addEventListener('click', () => startSession('kana', 'srs', null, 'hira'));
+  main.querySelector('#studyKataBtn').addEventListener('click', () => startSession('kana', 'srs', null, 'kata'));
+  main.querySelector('#startKanaPairBtn').addEventListener('click', () => startSession(null, 'kanapair'));
   if (kanaHideRomaji) {
     main.querySelectorAll('.kana-cell.hidden-rj').forEach(cell => {
       cell.addEventListener('click', () => cell.classList.toggle('revealed'));
@@ -1942,14 +2002,15 @@ function renderHomePage(main) {
 }
 
 // ==================== STUDY SESSION ====================
-function startSession(deckFilter, mode, day) {
+function startSession(deckFilter, mode, day, scriptFilter) {
   mode = mode || 'srs';
   let queue;
   if (mode === 'wrong') queue = buildWrongSession(deckFilter);
   else if (mode === 'cycle') { pendingCycleDay = day; queue = buildCycleSession(); }
-  else queue = buildSession(deckFilter);
+  else if (mode === 'kanapair') queue = buildKanaPairSession();
+  else queue = buildSession(deckFilter, scriptFilter);
   if (queue.length === 0) return;
-  session = { cards: queue, pos: 0, correct: 0, revealed: false, mode, cycleDay: day };
+  session = { cards: queue, pos: 0, correct: 0, revealed: false, mode, cycleDay: day, history: [] };
   viewMode = 'session';
   renderNav();
   renderPage();
@@ -1965,32 +2026,49 @@ function grammarExampleHtml(card) {
     </div>`;
 }
 
+async function deleteCardProgress(id) {
+  progressMap.delete(id);
+  if (dbApi) {
+    try { await dbApi.doc(profileDbPath() + '/' + id).delete(); return; } catch (e) {}
+  }
+  const blob = localBlob();
+  if (blob.cards) delete blob.cards[id];
+  saveLocalBlob(blob);
+}
+
 let activeSessionKeyHandler = null;
 function renderStudySession(main) {
   if (!session || session.pos >= session.cards.length) { renderSessionDone(main); return; }
+  if (!session.history) session.history = [];
   session.revealed = false;
   const card = session.cards[session.pos];
   const pct = (session.pos / session.cards.length) * 100;
   main.innerHTML = `
     <div class="session-bar">
+      <button class="icon-btn" id="exitSessionBtn" title="종료하고 홈으로">✕</button>
       <div class="session-progress"><div class="session-progress-fill" style="width:${pct.toFixed(1)}%"></div></div>
-      <div class="session-meta">${DECK_LABELS[card.deck]} · ${session.pos + 1} / ${session.cards.length}</div>
+      <button class="icon-btn" id="undoBtn" title="되돌리기" ${session.history.length ? '' : 'disabled'}>↶</button>
     </div>
-    <div class="study-card" id="studyCard">
-      <div class="study-front-row">
-        <div class="study-front jp">${card.front}</div>
-        ${speakBtnHtml(card.deck === 'grammar' ? card.ref.ex : card.front, 'lg')}
+    <div class="session-meta">${DECK_LABELS[card.deck]} · ${session.pos + 1} / ${session.cards.length}</div>
+    <div class="swipe-stage">
+      <div class="study-card" id="studyCard">
+        <div class="swipe-tag swipe-tag-left">다시</div>
+        <div class="swipe-tag swipe-tag-right">완료</div>
+        <div class="study-front-row">
+          <div class="study-front jp ${session.mode === 'kanapair' ? 'is-pair' : ''}">${card.front}</div>
+          ${speakBtnHtml(card.deck === 'grammar' ? card.ref.ex : (card.speak || card.front), 'lg')}
+        </div>
+        <div class="study-back" id="studyBack" style="display:none;">
+          <div class="study-back-text jp">${card.back}</div>
+          ${card.hasExample ? grammarExampleHtml(card) : ''}
+        </div>
+        <div class="tap-hint" id="tapHint">탭해서 뜻 보기 → 왼쪽 스와이프(다시) / 오른쪽 스와이프(완료)</div>
       </div>
-      <div class="study-back" id="studyBack" style="display:none;">
-        <div class="study-back-text jp">${card.back}</div>
-        ${card.hasExample ? grammarExampleHtml(card) : ''}
-      </div>
-      <div class="tap-hint" id="tapHint">탭하거나 스페이스바로 뜻 보기</div>
     </div>
     <div class="grade-row" id="gradeRow" style="display:none;">
-      <button data-g="again" class="grade-btn g-again">다시<span>1</span></button>
+      <button data-g="again" class="grade-btn g-again">다시<span>1 · ←</span></button>
       <button data-g="hard" class="grade-btn g-hard">어려움<span>2</span></button>
-      <button data-g="good" class="grade-btn g-good">좋음<span>3</span></button>
+      <button data-g="good" class="grade-btn g-good">좋음<span>3 · →</span></button>
       <button data-g="easy" class="grade-btn g-easy">쉬움<span>4</span></button>
     </div>
   `;
@@ -2002,18 +2080,95 @@ function renderStudySession(main) {
     main.querySelector('#tapHint').style.display = 'none';
     main.querySelector('#gradeRow').style.display = 'grid';
   };
-  studyCard.addEventListener('click', () => { if (!session.revealed) reveal(); });
 
-  main.querySelectorAll('.grade-btn').forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      e.stopPropagation();
-      const grade = btn.dataset.g;
-      await gradeCard(card.id, grade);
+  async function commitGrade(grade) {
+    if (session.mode === 'kanapair') {
+      session.history.push({ requeued: grade === 'again' });
+      if (grade === 'again') session.cards.push(card);
+      bumpStudyMeta();
       session.pos++;
       renderNav();
       renderPage();
-    });
+      return;
+    }
+    const prevProgress = progressMap.has(card.id) ? { ...progressMap.get(card.id) } : null;
+    session.history.push({ cardId: card.id, prevProgress });
+    await gradeCard(card.id, grade);
+    session.pos++;
+    renderNav();
+    renderPage();
+  }
+
+  studyCard.addEventListener('click', (e) => {
+    if (e.target.closest('.speak-btn')) return;
+    if (!session.revealed) reveal();
   });
+
+  main.querySelectorAll('.grade-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => { e.stopPropagation(); commitGrade(btn.dataset.g); });
+  });
+
+  main.querySelector('#exitSessionBtn').addEventListener('click', () => {
+    if (!confirm('학습을 종료하고 홈으로 돌아갈까요? 지금까지 한 카드는 저장돼요.')) return;
+    session = null; pendingCycleDay = null; viewMode = 'normal'; currentTab = 'home';
+    if (activeSessionKeyHandler) { document.removeEventListener('keydown', activeSessionKeyHandler); activeSessionKeyHandler = null; }
+    renderNav(); renderPage();
+  });
+
+  main.querySelector('#undoBtn').addEventListener('click', async () => {
+    if (!session.history.length) return;
+    const last = session.history.pop();
+    if (session.mode === 'kanapair') {
+      if (last.requeued) session.cards.pop(); // remove the copy we appended to the end
+    } else if (last.prevProgress) {
+      progressMap.set(last.cardId, last.prevProgress); await saveCardProgress(last.cardId, last.prevProgress);
+    } else {
+      await deleteCardProgress(last.cardId);
+    }
+    session.pos = Math.max(0, session.pos - 1);
+    renderNav();
+    renderPage();
+  });
+
+  // ---- 스와이프 제스처: 왼쪽=다시, 오른쪽=완료(좋음) ----
+  (function attachSwipe() {
+    let startX = 0, dx = 0, dragging = false;
+    const threshold = 90;
+    const px = (e) => (e.touches ? e.touches[0].clientX : e.clientX);
+    function onDown(e) {
+      if (!session.revealed || e.target.closest('.speak-btn')) return;
+      dragging = true;
+      startX = px(e);
+      studyCard.style.transition = 'none';
+    }
+    function onMoveEv(e) {
+      if (!dragging) return;
+      dx = px(e) - startX;
+      studyCard.style.transform = `translateX(${dx}px) rotate(${dx / 18}deg)`;
+      studyCard.classList.toggle('tag-left-active', dx < -30);
+      studyCard.classList.toggle('tag-right-active', dx > 30);
+    }
+    function onUp() {
+      if (!dragging) return;
+      dragging = false;
+      studyCard.style.transition = 'transform .25s ease';
+      if (dx > threshold) {
+        studyCard.style.transform = `translateX(700px) rotate(18deg)`;
+        setTimeout(() => commitGrade('good'), 160);
+      } else if (dx < -threshold) {
+        studyCard.style.transform = `translateX(-700px) rotate(-18deg)`;
+        setTimeout(() => commitGrade('again'), 160);
+      } else {
+        studyCard.style.transform = '';
+        studyCard.classList.remove('tag-left-active', 'tag-right-active');
+      }
+      dx = 0;
+    }
+    studyCard.addEventListener('pointerdown', onDown);
+    studyCard.addEventListener('pointermove', onMoveEv);
+    studyCard.addEventListener('pointerup', onUp);
+    studyCard.addEventListener('pointerleave', onUp);
+  })();
 
   if (activeSessionKeyHandler) document.removeEventListener('keydown', activeSessionKeyHandler);
   activeSessionKeyHandler = function keyHandler(e) {
@@ -2140,6 +2295,7 @@ function renderSessionDone(main) {
   let extraMsg = '';
   if (mode === 'wrong') extraMsg = '오답 카드들을 다시 확인했어요. 연속으로 2번 맞히면 오답 목록에서 빠져요.';
   else if (mode === 'cycle') extraMsg = `${session.cycleDay}일차 회독을 마쳤어요.`;
+  else if (mode === 'kanapair') extraMsg = '히라가나・가타카나 104쌍을 모두 맞혔어요! 다시 돌리고 싶으면 한 번 더 시작하세요.';
   main.innerHTML = `
     <div class="session-done">
       <div class="big display">수고하셨습니다!</div>
