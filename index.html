@@ -478,6 +478,27 @@
   .study-card.tag-left-active .swipe-tag-left { opacity: 1; }
   .study-card.tag-right-active .swipe-tag-right { opacity: 1; }
 
+  /* ---- 쓰기 연습 ---- */
+  .write-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+    box-shadow: var(--shadow); padding: 28px 24px; display: flex; flex-direction: column;
+    align-items: center; gap: 14px;
+  }
+  .write-canvas-wrap {
+    position: relative; width: 320px; max-width: 100%; aspect-ratio: 1/1;
+    border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--surface-sunken);
+    touch-action: none;
+  }
+  .write-canvas-wrap canvas {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  }
+  #writeInkCanvas { cursor: crosshair; }
+  .write-sub { font-size: 15px; color: var(--indigo); font-weight: 700; text-align: center; }
+  .write-controls { display: flex; align-items: center; gap: 10px; }
+  .write-nav-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+  .primary-btn.ghost-btn { background: transparent; border: 1px solid var(--border); color: var(--ink-soft); box-shadow: none; }
+  .primary-btn:disabled.ghost-btn { opacity: 0.4; }
+
   .grade-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 18px; }
   .grade-btn {
     border: none; border-radius: 12px; padding: 14px 6px; font-size: 14px; font-weight: 700;
@@ -1544,6 +1565,7 @@ function renderPage() {
   const main = document.getElementById('main');
   if (viewMode === 'session') { renderStudySession(main); return; }
   if (viewMode === 'quiz') { renderQuizPage(main); return; }
+  if (viewMode === 'write') { renderWritePractice(main); return; }
   if (currentTab === 'kana') { renderKanaPage(main); return; }
   if (currentTab === 'kanji') { renderKanjiPage(main); return; }
   if (currentTab === 'vocab') { renderVocabPage(main); return; }
@@ -1603,6 +1625,7 @@ function renderKanaPage(main) {
       <button class="mini-btn" id="quizHiraBtn">📝 히라가나 퀴즈</button>
       <button class="mini-btn" id="quizKataBtn">📝 가타카나 퀴즈</button>
       <button class="mini-btn ghost" id="quizKanaAllBtn">📝 가나 전체 퀴즈</button>
+      <button class="mini-btn ghost" id="writeKanaBtn">✏️ ${kanaScript==='hira'?'히라가나':'가타카나'} 쓰기 연습</button>
     </div>
     ${kanaBlockHtml('기본 46자', KANA_BASE_ROWS, map, 5)}
     ${kanaBlockHtml('탁음・반탁음', KANA_DAKU_ROWS, map, 5)}
@@ -1625,6 +1648,10 @@ function renderKanaPage(main) {
   main.querySelector('#studyHiraBtn').addEventListener('click', () => startSession('kana', 'srs', null, 'hira'));
   main.querySelector('#studyKataBtn').addEventListener('click', () => startSession('kana', 'srs', null, 'kata'));
   main.querySelector('#startKanaPairBtn').addEventListener('click', () => startSession(null, 'kanapair'));
+  main.querySelector('#writeKanaBtn').addEventListener('click', () => {
+    const items = Object.keys(map).map(r => ({ char: map[r], sub: romajiLabel(r) }));
+    startWritePractice(items, kanaScript === 'hira' ? '히라가나' : '가타카나');
+  });
   if (kanaHideRomaji) {
     main.querySelectorAll('.kana-cell.hidden-rj').forEach(cell => {
       cell.addEventListener('click', () => cell.classList.toggle('revealed'));
@@ -1656,6 +1683,7 @@ function renderKanjiPage(main) {
         <span class="ico">⌕</span>
         <input type="text" id="kanjiSearch" placeholder="한자, 읽는 법, 뜻으로 검색..." value="${kanjiSearch}" />
       </div>
+      <button class="mini-btn ghost" id="writeKanjiBtn">✏️ 쓰기 연습</button>
     </div>
     <div class="chip-row" id="kanjiChips">
       <div class="chip ${kanjiCatFilter==='all'?'active':''}" data-cat="all">전체</div>
@@ -1674,6 +1702,10 @@ function renderKanjiPage(main) {
     main.querySelector('.deck-count').textContent = `${filtered2.length}자 표시 중`;
     main.querySelector('#kanjiGrid').innerHTML = filtered2.map(kanjiCardHtml).join('');
     bindKanjiCardClicks(main);
+  });
+  main.querySelector('#writeKanjiBtn').addEventListener('click', () => {
+    const items = KANJI.filter(kanjiMatches).map(k => ({ char: k.ch, sub: `${k.on}${k.kun ? ' / ' + k.kun : ''} — ${k.mean}` }));
+    startWritePractice(items, '한자');
   });
   main.querySelectorAll('#kanjiChips .chip').forEach(chip => {
     chip.addEventListener('click', () => {
@@ -2282,6 +2314,120 @@ function renderQuizDone(main) {
     currentTab = 'home';
     renderNav();
     renderPage();
+  });
+}
+
+// ==================== 쓰기 연습 (한자・가나 손글씨 연습) ====================
+let writeState = null; // { items, idx, label, showGuide }
+
+function startWritePractice(items, label) {
+  if (!items.length) return;
+  writeState = { items: shuffle(items), idx: 0, label, showGuide: true };
+  viewMode = 'write';
+  renderNav();
+  renderPage();
+}
+
+function renderWritePractice(main) {
+  const item = writeState.items[writeState.idx];
+  main.innerHTML = `
+    <div class="session-bar">
+      <button class="icon-btn" id="writeExitBtn" title="종료하고 홈으로">✕</button>
+      <div class="session-progress"><div class="session-progress-fill" style="width:${((writeState.idx)/writeState.items.length*100).toFixed(1)}%"></div></div>
+      <button class="icon-btn" id="writeGuideBtn" title="획순 참고 보이기/숨기기">${writeState.showGuide ? '👁' : '🚫'}</button>
+    </div>
+    <div class="session-meta">${writeState.label} 쓰기 연습 · ${writeState.idx + 1} / ${writeState.items.length}</div>
+    <div class="write-card">
+      <div class="write-canvas-wrap">
+        <canvas id="writeGuideCanvas" width="320" height="320"></canvas>
+        <canvas id="writeInkCanvas" width="320" height="320"></canvas>
+      </div>
+      <div class="write-sub jp">${item.sub}</div>
+      <div class="write-controls">
+        <button class="mini-btn" id="writeClearBtn">🧹 지우기</button>
+        ${speakBtnHtml(item.speak || item.char)}
+      </div>
+    </div>
+    <div class="write-nav-row">
+      <button class="primary-btn ghost-btn" id="writePrevBtn" ${writeState.idx === 0 ? 'disabled' : ''}>← 이전</button>
+      <button class="primary-btn" id="writeNextBtn">${writeState.idx === writeState.items.length - 1 ? '완료' : '다음 →'}</button>
+    </div>
+  `;
+
+  const guideCanvas = main.querySelector('#writeGuideCanvas');
+  const inkCanvas = main.querySelector('#writeInkCanvas');
+  const gctx = guideCanvas.getContext('2d');
+  const ictx = inkCanvas.getContext('2d');
+  const W = guideCanvas.width, H = guideCanvas.height;
+
+  function drawGuide() {
+    gctx.clearRect(0, 0, W, H);
+    if (!writeState.showGuide) return;
+    gctx.strokeStyle = 'rgba(150,140,120,0.35)';
+    gctx.setLineDash([6, 6]);
+    gctx.lineWidth = 1;
+    gctx.beginPath(); gctx.moveTo(W / 2, 0); gctx.lineTo(W / 2, H); gctx.stroke();
+    gctx.beginPath(); gctx.moveTo(0, H / 2); gctx.lineTo(W, H / 2); gctx.stroke();
+    gctx.setLineDash([]);
+    gctx.fillStyle = 'rgba(150,140,120,0.45)';
+    gctx.font = `${H * 0.7}px "Noto Sans JP", sans-serif`;
+    gctx.textAlign = 'center';
+    gctx.textBaseline = 'middle';
+    gctx.fillText(item.char, W / 2, H / 2 + H * 0.02);
+  }
+  function clearInk() { ictx.clearRect(0, 0, W, H); }
+  drawGuide();
+  clearInk();
+
+  let drawing = false, lastX = 0, lastY = 0;
+  function toCanvasPos(e) {
+    const rect = inkCanvas.getBoundingClientRect();
+    const cx = (e.clientX - rect.left) * (W / rect.width);
+    const cy = (e.clientY - rect.top) * (H / rect.height);
+    return { x: cx, y: cy };
+  }
+  function onDown(e) {
+    e.preventDefault();
+    drawing = true;
+    const p = toCanvasPos(e);
+    lastX = p.x; lastY = p.y;
+    ictx.fillStyle = 'var(--ink)';
+    const inkColor = getComputedStyle(document.body).color;
+    ictx.fillStyle = inkColor;
+    ictx.beginPath(); ictx.arc(p.x, p.y, 6, 0, Math.PI * 2); ictx.fill();
+  }
+  function onMoveEv(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const p = toCanvasPos(e);
+    const inkColor = getComputedStyle(document.body).color;
+    ictx.strokeStyle = inkColor;
+    ictx.lineWidth = 12; ictx.lineCap = 'round'; ictx.lineJoin = 'round';
+    ictx.beginPath(); ictx.moveTo(lastX, lastY); ictx.lineTo(p.x, p.y); ictx.stroke();
+    lastX = p.x; lastY = p.y;
+  }
+  function onUp() { drawing = false; }
+  inkCanvas.addEventListener('pointerdown', onDown);
+  inkCanvas.addEventListener('pointermove', onMoveEv);
+  inkCanvas.addEventListener('pointerup', onUp);
+  inkCanvas.addEventListener('pointerleave', onUp);
+
+  main.querySelector('#writeClearBtn').addEventListener('click', clearInk);
+  main.querySelector('#writeGuideBtn').addEventListener('click', () => {
+    writeState.showGuide = !writeState.showGuide;
+    drawGuide();
+    main.querySelector('#writeGuideBtn').textContent = writeState.showGuide ? '👁' : '🚫';
+  });
+  main.querySelector('#writeExitBtn').addEventListener('click', () => {
+    writeState = null; viewMode = 'normal';
+    renderNav(); renderPage();
+  });
+  main.querySelector('#writePrevBtn').addEventListener('click', () => {
+    if (writeState.idx > 0) { writeState.idx--; renderPage(); }
+  });
+  main.querySelector('#writeNextBtn').addEventListener('click', () => {
+    if (writeState.idx < writeState.items.length - 1) { writeState.idx++; renderPage(); }
+    else { writeState = null; viewMode = 'normal'; renderNav(); renderPage(); }
   });
 }
 
