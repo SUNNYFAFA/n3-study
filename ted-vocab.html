@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>토크 보카 — 스피치 단어장</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIu2GoO2BrCDrs7TsubQiLCAic2hvcnRfbmFtZSI6ICLthqDtgazrs7TsubQiLCAic3RhcnRfdXJsIjogIi4vdGVkLXZvY2FiLmh0bWwiLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgImJhY2tncm91bmRfY29sb3IiOiAiI0ZCRjZFQyIsICJ0aGVtZV9jb2xvciI6ICIjQzQ0MjJFIn0=">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSIjQzQ0MjJFIi8+PHRleHQgeD0iOTYiIHk9IjEyOCIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iOTAiIGZpbGw9IiNGRkY4RUUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtd2VpZ2h0PSJib2xkIj5UPC90ZXh0Pjwvc3ZnPg==">
+<meta name="theme-color" content="#C4422E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="토크 보카">
+<style>
+  :root {
+    --bg: #FBF6EC;
+    --surface: #FFFFFF;
+    --surface-sunken: #F1E9D8;
+    --border: #E3D8BE;
+    --ink: #2A2420;
+    --ink-soft: #7A6E5C;
+    --accent: #C4422E;
+    --accent-soft: #FBE6E0;
+    --accent-ink: #8F2E1F;
+    --blue: #2C5F8A;
+    --blue-soft: #E3EEF6;
+    --green: #4C7A4A;
+    --green-soft: #E6F0E4;
+    --amber: #B4791F;
+    --amber-soft: #FBEEDB;
+    --shadow: 0 1px 2px rgba(42,36,32,0.06), 0 8px 24px rgba(42,36,32,0.07);
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1B1713;
+      --surface: #24201A;
+      --surface-sunken: #2E2820;
+      --border: #453C2F;
+      --ink: #F1E9D8;
+      --ink-soft: #B3A691;
+      --accent: #E68166;
+      --accent-soft: #3B2620;
+      --accent-ink: #F2A793;
+      --blue: #8FB9DC;
+      --blue-soft: #223442;
+      --green: #9CC298;
+      --green-soft: #223224;
+      --amber: #E3AE5C;
+      --amber-soft: #3A2E19;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1B1713; --surface: #24201A; --surface-sunken: #2E2820; --border: #453C2F;
+    --ink: #F1E9D8; --ink-soft: #B3A691; --accent: #E68166; --accent-soft: #3B2620;
+    --accent-ink: #F2A793; --blue: #8FB9DC; --blue-soft: #223442; --green: #9CC298;
+    --green-soft: #223224; --amber: #E3AE5C; --amber-soft: #3A2E19;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans KR", sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .en { font-family: "Lora", "Noto Sans KR", serif; }
+  button, input, textarea, select { font-family: inherit; color: inherit; }
+  .app { display: grid; grid-template-columns: 224px 1fr; min-height: 100vh; }
+  @media (max-width: 780px) {
+    .app { grid-template-columns: 1fr; }
+    .rail { display: none; }
+    .tabbar-mobile { display: flex; }
+  }
+  .rail { background: var(--surface); border-right: 1px solid var(--border); padding: 22px 14px; display: flex; flex-direction: column; gap: 4px; position: sticky; top: 0; height: 100vh; }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 4px 10px 22px; }
+  .brand .seal { width: 32px; height: 32px; border-radius: 9px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-family: "Lora", serif; font-size: 17px; font-weight: 700; flex: none; }
+  .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+  .brand-text b { font-size: 16.5px; font-weight: 800; letter-spacing: -0.01em; }
+  .brand-text span { font-size: 11px; color: var(--ink-soft); letter-spacing: 0.03em; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; color: var(--ink-soft); cursor: pointer; font-size: 14.5px; font-weight: 500; user-select: none; }
+  .nav-item .ico { font-size: 16px; width: 18px; text-align: center; }
+  .nav-item:hover { background: var(--surface-sunken); color: var(--ink); }
+  .nav-item.active { background: var(--accent-soft); color: var(--accent-ink); font-weight: 700; }
+  .nav-badge { margin-left: auto; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 20px; }
+  .rail-foot { margin-top: auto; padding: 12px; border-radius: 12px; background: var(--surface-sunken); display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .streak-row { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--ink-soft); }
+  .streak-row b { color: var(--accent-ink); font-size: 16px; font-weight: 800; }
+  .theme-btn { border: none; background: none; cursor: pointer; font-size: 16px; padding: 4px; border-radius: 8px; color: var(--ink-soft); }
+  .theme-btn:hover { background: var(--surface); }
+
+  .tabbar-mobile { display: none; position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--border); padding: 8px 8px; gap: 2px; overflow-x: auto; }
+  .tabbar-mobile .nav-item { flex: none; padding: 8px 12px; font-size: 13px; }
+
+  main#view { padding: 28px 34px 80px; max-width: 980px; }
+  @media (max-width: 780px) { main#view { padding: 18px 16px 70px; } }
+
+  h1.page-title { font-size: 22px; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.01em; }
+  p.page-sub { color: var(--ink-soft); margin: 0 0 22px; font-size: 14px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .pad { padding: 20px; }
+  .stack { display: flex; flex-direction: column; gap: 14px; }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  @media (max-width: 700px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+  .stat-card .n { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; }
+  .stat-card .l { font-size: 12.5px; color: var(--ink-soft); margin-top: 2px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--ink); border-radius: 10px; padding: 10px 16px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .btn:hover { background: var(--surface-sunken); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { filter: brightness(1.06); }
+  .btn.ghost { border-color: transparent; background: transparent; }
+  .btn.sm { padding: 6px 11px; font-size: 12.5px; border-radius: 8px; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .btn.block { width: 100%; }
+
+  textarea, input[type=text], select {
+    width: 100%; border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+    border-radius: 10px; padding: 10px 12px; font-size: 14px; resize: vertical;
+  }
+  textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  label.field-label { font-size: 12.5px; font-weight: 700; color: var(--ink-soft); margin-bottom: 5px; display: block; }
+
+  .script-box { line-height: 2.05; font-size: 16.5px; }
+  .script-box .tok { cursor: pointer; border-radius: 4px; padding: 1px 1px; }
+  .script-box .tok:hover { background: var(--accent-soft); }
+  .script-box .tok.saved { background: var(--green-soft); color: var(--green); font-weight: 600; border-bottom: 2px solid var(--green); }
+  .script-box .tok.due { background: var(--amber-soft); border-bottom: 2px solid var(--amber); }
+
+  .sel-toolbar { position: fixed; z-index: 40; transform: translate(-50%, -110%); }
+  .sel-toolbar button { box-shadow: var(--shadow); }
+
+  .panel-overlay { position: fixed; inset: 0; background: rgba(20,16,12,0.35); z-index: 50; display: flex; justify-content: flex-end; }
+  .panel-overlay.hidden { display: none; }
+  .panel { width: 420px; max-width: 100%; background: var(--surface); height: 100%; overflow-y: auto; padding: 22px; box-shadow: -8px 0 30px rgba(0,0,0,0.15); }
+  @media (max-width: 700px) { .panel-overlay { align-items: flex-end; } .panel { width: 100%; height: 85vh; border-radius: 18px 18px 0 0; } }
+
+  .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+  .panel-head .term { font-size: 24px; font-weight: 700; }
+  .panel-head .close { border: none; background: none; font-size: 20px; cursor: pointer; color: var(--ink-soft); }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; background: var(--surface-sunken); color: var(--ink-soft); }
+  .badge.pos { background: var(--blue-soft); color: var(--blue); margin-right: 6px; }
+  .phonetic-row { display: flex; align-items: center; gap: 8px; color: var(--ink-soft); font-size: 14.5px; margin: 4px 0 14px; }
+  .speak-btn { border: 1px solid var(--border); background: var(--surface); border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 14px; }
+  .speak-btn:hover { background: var(--surface-sunken); }
+  .def-item { padding: 9px 11px; background: var(--surface-sunken); border-radius: 9px; margin-bottom: 6px; font-size: 13.5px; line-height: 1.5; }
+  .def-item .ex { color: var(--ink-soft); font-style: italic; margin-top: 3px; }
+  .context-quote { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 10px 12px; border-radius: 0 8px 8px 0; font-size: 13.5px; line-height: 1.6; }
+  .context-quote mark { background: #FFE18F; color: #2A2420; border-radius: 3px; padding: 0 2px; }
+  .loading-row { display: flex; align-items: center; gap: 8px; color: var(--ink-soft); font-size: 13.5px; padding: 10px 0; }
+  .spinner { width: 14px; height: 14px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .deck-list { display: flex; flex-direction: column; gap: 8px; }
+  .deck-row { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+  .deck-row .term { font-weight: 700; font-size: 15px; }
+  .deck-row .meaning { font-size: 12.5px; color: var(--ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 320px; }
+  .deck-row .meta { margin-left: auto; display: flex; align-items: center; gap: 8px; flex: none; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .status-dot.new { background: var(--blue); }
+  .status-dot.due { background: var(--accent); }
+  .status-dot.learned { background: var(--green); }
+
+  .filter-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .filter-tabs button { border: 1px solid var(--border); background: var(--surface); border-radius: 20px; padding: 6px 13px; font-size: 12.5px; font-weight: 600; cursor: pointer; color: var(--ink-soft); }
+  .filter-tabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .review-stage { display: flex; flex-direction: column; align-items: center; padding: 10px 0 30px; }
+  .review-progress { width: 100%; max-width: 560px; height: 6px; background: var(--surface-sunken); border-radius: 4px; overflow: hidden; margin-bottom: 20px; }
+  .review-progress .bar { height: 100%; background: var(--accent); transition: width .25s; }
+  .review-card { width: 100%; max-width: 560px; min-height: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow); padding: 34px 30px; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; gap: 16px; }
+  .review-card .cloze { font-size: 18px; line-height: 1.9; color: var(--ink-soft); }
+  .review-card .cloze b.blank { display: inline-block; min-width: 60px; border-bottom: 2px solid var(--accent); color: transparent; }
+  .review-card .term-big { font-size: 30px; font-weight: 800; font-family: "Lora", serif; }
+  .review-card .badge.deck { background: var(--surface-sunken); }
+  .grade-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; max-width: 560px; margin-top: 18px; }
+  .grade-btn { border: none; border-radius: 12px; padding: 12px 6px; cursor: pointer; font-weight: 700; font-size: 13.5px; color: #fff; display: flex; flex-direction: column; gap: 2px; align-items: center; }
+  .grade-btn span.next { font-size: 11px; font-weight: 500; opacity: .85; }
+  .grade-btn.again { background: #B7402D; }
+  .grade-btn.hard { background: var(--amber); }
+  .grade-btn.good { background: var(--green); }
+  .grade-btn.easy { background: var(--blue); }
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--ink-soft); }
+  .empty-state .emoji { font-size: 40px; margin-bottom: 10px; }
+
+  .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 24px; font-size: 13.5px; font-weight: 600; z-index: 80; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
+
+  .script-lib-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); cursor: pointer; }
+  .script-lib-row:hover { background: var(--surface-sunken); }
+  .script-lib-row .t { font-weight: 700; font-size: 14px; flex: 1; }
+  .script-lib-row .d { font-size: 12px; color: var(--ink-soft); flex: none; }
+
+  .hidden { display: none !important; }
+  .divider { height: 1px; background: var(--border); margin: 16px 0; }
+  .hint { font-size: 12px; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="rail" id="rail"></nav>
+  <div class="tabbar-mobile" id="tabbarMobile"></div>
+  <main id="view"></main>
+</div>
+
+<div class="panel-overlay hidden" id="lookupOverlay">
+  <div class="panel" id="lookupPanel"></div>
+</div>
+
+<div class="sel-toolbar hidden" id="selToolbar">
+  <button class="btn primary sm" id="selAddBtn">+ 이 표현 카드로 추가</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  const LS_CARDS = "tv_cards", LS_SCRIPTS = "tv_scripts", LS_LOG = "tv_log", LS_SETTINGS = "tv_settings", LS_THEME = "tv_theme";
+
+  function load(key, fallback) {
+    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+    catch (e) { return fallback; }
+  }
+  function save(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
+
+  const state = {
+    tab: "home",
+    cards: load(LS_CARDS, []),
+    scripts: load(LS_SCRIPTS, []),
+    log: load(LS_LOG, []),
+    settings: load(LS_SETTINGS, { newPerDay: 15 }),
+    currentScriptId: null,
+    currentTokens: [],
+    currentSentences: [],
+    dictCache: {},
+    reviewQueue: [],
+    reviewIdx: 0,
+    reviewFlipped: false,
+    lookup: null
+  };
+
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+  function todayKey(ts) { const d = new Date(ts || Date.now()); return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate(); }
+  function fmtDate(ts) { const d = new Date(ts); return (d.getMonth()+1) + "월 " + d.getDate() + "일"; }
+  function dayMs(n) { return n * 86400000; }
+
+  function persistCards() { save(LS_CARDS, state.cards); }
+  function persistScripts() { save(LS_SCRIPTS, state.scripts); }
+  function logReviewToday() {
+    const k = todayKey();
+    if (!state.log.includes(k)) { state.log.push(k); save(LS_LOG, state.log); }
+  }
+  function currentStreak() {
+    let streak = 0, cursor = Date.now();
+    while (state.log.includes(todayKey(cursor))) { streak++; cursor -= dayMs(1); }
+    return streak;
+  }
+
+  function toast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.classList.remove("show"), 1800);
+  }
+
+  // ---------- text processing ----------
+  function tokenize(text) {
+    const tokens = [];
+    const re = /[A-Za-z]+(?:'[A-Za-z]+)?/g;
+    let last = 0, m;
+    while ((m = re.exec(text))) {
+      if (m.index > last) tokens.push({ type: "text", value: text.slice(last, m.index) });
+      tokens.push({ type: "word", value: m[0], start: m.index, end: re.lastIndex });
+      last = re.lastIndex;
+    }
+    if (last < text.length) tokens.push({ type: "text", value: text.slice(last) });
+    return tokens;
+  }
+  function splitSentences(text) {
+    const sentences = [];
+    const re = /[^.!?]+[.!?]+(?:\s+|$)|[^.!?]+$/g;
+    let m;
+    while ((m = re.exec(text))) {
+      const raw = m[0];
+      const trimmed = raw.trim();
+      if (trimmed) sentences.push({ text: trimmed, start: m.index, end: m.index + raw.length });
+    }
+    return sentences;
+  }
+  function sentenceAtOffset(sentences, offset) {
+    for (const s of sentences) if (offset >= s.start && offset < s.end) return s;
+    return sentences.length ? sentences[sentences.length - 1] : null;
+  }
+  function escapeHtml(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+  function savedWordSet() {
+    const set = new Set();
+    state.cards.forEach(c => set.add(c.term.toLowerCase()));
+    return set;
+  }
+
+  function renderScriptTokens(text) {
+    const tokens = tokenize(text);
+    const sentences = splitSentences(text);
+    state.currentTokens = tokens;
+    state.currentSentences = sentences;
+    const saved = savedWordSet();
+    let html = "";
+    tokens.forEach(t => {
+      if (t.type === "text") html += escapeHtml(t.value);
+      else {
+        const cls = saved.has(t.value.toLowerCase()) ? "tok saved" : "tok";
+        html += `<span class="${cls}" data-word="${escapeHtml(t.value)}" data-start="${t.start}">${escapeHtml(t.value)}</span>`;
+      }
+    });
+    return html;
+  }
+
+  // ---------- SRS ----------
+  function isDue(card) { return !card.due || card.due <= Date.now(); }
+  function isNew(card) { return !card.reps; }
+  function cardStatus(card) {
+    if (isNew(card)) return "new";
+    if (isDue(card)) return "due";
+    return "learned";
+  }
+  function previewInterval(card, grade) {
+    const c = JSON.parse(JSON.stringify(card));
+    scheduleCard(c, grade);
+    if (grade === "again") return "곧 다시";
+    const days = Math.round((c.due - Date.now()) / dayMs(1));
+    if (days <= 0) return "곧 다시";
+    if (days === 1) return "1일";
+    if (days < 30) return days + "일";
+    return Math.round(days / 30) + "개월";
+  }
+  function scheduleCard(card, grade) {
+    const now = Date.now();
+    card.ease = card.ease || 2.5;
+    card.interval = card.interval || 0;
+    card.reps = card.reps || 0;
+    card.lapses = card.lapses || 0;
+    if (grade === "again") {
+      card.lapses += 1;
+      card.ease = Math.max(1.3, card.ease - 0.2);
+      card.interval = 0;
+      card.reps = 0;
+      card.due = now;
+    } else if (grade === "hard") {
+      card.ease = Math.max(1.3, card.ease - 0.15);
+      card.interval = card.reps === 0 ? 1 : Math.max(1, Math.round(card.interval * 1.2));
+      card.reps += 1;
+      card.due = now + dayMs(card.interval);
+    } else if (grade === "good") {
+      if (card.reps === 0) card.interval = 1;
+      else if (card.reps === 1) card.interval = 3;
+      else card.interval = Math.max(1, Math.round(card.interval * card.ease));
+      card.reps += 1;
+      card.due = now + dayMs(card.interval);
+    } else if (grade === "easy") {
+      card.ease = card.ease + 0.15;
+      card.interval = card.reps === 0 ? 4 : Math.round(card.interval * card.ease * 1.3) + 1;
+      card.reps += 1;
+      card.due = now + dayMs(card.interval);
+    }
+    card.lastReview = now;
+  }
+
+  // ---------- dictionary lookup ----------
+  async function fetchDefinition(word) {
+    const key = word.toLowerCase();
+    if (state.dictCache[key] !== undefined) return state.dictCache[key];
+    try {
+      const res = await fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + encodeURIComponent(key));
+      if (!res.ok) throw new Error("not found");
+      const data = await res.json();
+      state.dictCache[key] = data[0] || null;
+    } catch (e) {
+      state.dictCache[key] = null;
+    }
+    return state.dictCache[key];
+  }
+  function speak(text) {
+    try {
+      if (!("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.92;
+      window.speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+
+  // ---------- navigation ----------
+  const NAV = [
+    { id: "home", label: "홈", icon: "🏠" },
+    { id: "analyze", label: "스크립트 분석", icon: "📝" },
+    { id: "deck", label: "단어장", icon: "🗂️" },
+    { id: "review", label: "복습", icon: "🔁" }
+  ];
+
+  function dueCount() { return state.cards.filter(isDue).length; }
+
+  function renderRail() {
+    const railHtml = NAV.map(t => `
+      <div class="nav-item ${t.id === state.tab ? "active" : ""}" data-tab="${t.id}">
+        <span class="ico">${t.icon}</span><span>${t.label}</span>
+        ${t.id === "review" && dueCount() > 0 ? `<span class="nav-badge">${dueCount()}</span>` : ""}
+      </div>`).join("");
+    document.getElementById("rail").innerHTML = `
+      <div class="brand">
+        <div class="seal">T</div>
+        <div class="brand-text"><b>토크 보카</b><span>TALK VOCA</span></div>
+      </div>
+      ${railHtml}
+      <div class="rail-foot">
+        <div class="streak-row">🔥 <b>${currentStreak()}</b> 일 연속</div>
+        <button class="theme-btn" id="themeToggle" title="테마 전환">${document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙"}</button>
+      </div>`;
+    document.getElementById("tabbarMobile").innerHTML = railHtml;
+  }
+
+  function setTab(id) {
+    state.tab = id;
+    render();
+  }
+
+  // ---------- views ----------
+  function viewHome() {
+    const total = state.cards.length;
+    const due = dueCount();
+    const learned = state.cards.filter(c => c.interval >= 21).length;
+    const newAvail = state.cards.filter(isNew).length;
+    const recent = state.cards.slice().sort((a,b) => b.createdAt - a.createdAt).slice(0, 6);
+    return `
+      <h1 class="page-title">안녕하세요 👋</h1>
+      <p class="page-sub">스피치 스크립트에서 모르는 단어와 표현을 모아 안키처럼 복습해요.</p>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="n">${total}</div><div class="l">전체 단어</div></div>
+        <div class="stat-card"><div class="n">${due}</div><div class="l">오늘 복습</div></div>
+        <div class="stat-card"><div class="n">${newAvail}</div><div class="l">새 카드</div></div>
+        <div class="stat-card"><div class="n">${learned}</div><div class="l">숙련 단어</div></div>
+      </div>
+      <div class="row" style="margin-bottom:22px;">
+        <button class="btn primary" data-go="review">🔁 복습 시작하기</button>
+        <button class="btn" data-go="analyze">📝 새 스크립트 분석하기</button>
+      </div>
+      <div class="card pad">
+        <div style="font-weight:700; margin-bottom:12px;">최근에 추가한 단어</div>
+        ${recent.length ? `<div class="deck-list">${recent.map(cardRowHtml).join("")}</div>` : `<div class="hint">아직 추가한 단어가 없어요. 스크립트 분석 탭에서 시작해보세요.</div>`}
+      </div>`;
+  }
+
+  function cardRowHtml(c) {
+    const st = cardStatus(c);
+    const label = st === "new" ? "새 단어" : st === "due" ? "복습 필요" : "학습 중";
+    return `
+      <div class="deck-row" data-card="${c.id}">
+        <span class="status-dot ${st}" title="${label}"></span>
+        <div>
+          <div class="term en">${escapeHtml(c.term)}</div>
+          <div class="meaning">${escapeHtml(c.meaningKo || c.meaningEn || "뜻 없음")}</div>
+        </div>
+        <div class="meta">
+          <span class="badge">${c.isPhrase ? "표현" : "단어"}</span>
+          <button class="btn sm" data-edit="${c.id}">수정</button>
+          <button class="btn sm" data-del="${c.id}">삭제</button>
+        </div>
+      </div>`;
+  }
+
+  function viewAnalyze() {
+    const cur = state.scripts.find(s => s.id === state.currentScriptId);
+    const libHtml = state.scripts.length ? state.scripts.slice().sort((a,b)=>b.createdAt-a.createdAt).map(s => `
+      <div class="script-lib-row" data-load="${s.id}">
+        <span class="t">${escapeHtml(s.title)}</span>
+        <span class="d">${fmtDate(s.createdAt)}</span>
+        <button class="btn sm" data-delscript="${s.id}" title="삭제">✕</button>
+      </div>`).join("") : `<div class="hint">저장된 스크립트가 없어요.</div>`;
+
+    return `
+      <h1 class="page-title">스크립트 분석</h1>
+      <p class="page-sub">스피치 대본을 붙여넣고, 모르는 단어나 표현을 클릭하거나 드래그해서 카드로 저장하세요.</p>
+
+      <div class="card pad stack" style="margin-bottom:22px;">
+        <div>
+          <label class="field-label">제목</label>
+          <input type="text" id="scriptTitle" placeholder="예: Simon Sinek - How great leaders inspire action">
+        </div>
+        <div>
+          <label class="field-label">스크립트 붙여넣기</label>
+          <textarea id="scriptText" rows="7" placeholder="여기에 TED 스피치 대본(영문)을 붙여넣으세요..."></textarea>
+        </div>
+        <button class="btn primary" id="analyzeBtn">분석 시작</button>
+      </div>
+
+      ${cur ? `
+      <div class="card pad" style="margin-bottom:22px;">
+        <div class="row" style="justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <div style="font-weight:800; font-size:16px;">${escapeHtml(cur.title)}</div>
+          <span class="hint">단어를 클릭하거나 표현을 드래그로 선택하세요</span>
+        </div>
+        <div class="script-box en" id="scriptBox">${renderScriptTokens(cur.text)}</div>
+      </div>` : ""}
+
+      <div class="card pad">
+        <div style="font-weight:700; margin-bottom:12px;">저장된 스크립트</div>
+        <div class="deck-list">${libHtml}</div>
+      </div>`;
+  }
+
+  function viewDeck(filter) {
+    filter = filter || "all";
+    let list = state.cards.slice().sort((a,b) => b.createdAt - a.createdAt);
+    if (filter === "due") list = list.filter(isDue);
+    if (filter === "new") list = list.filter(isNew);
+    if (filter === "learned") list = list.filter(c => c.interval >= 21);
+    return `
+      <h1 class="page-title">단어장</h1>
+      <p class="page-sub">저장한 단어와 표현을 확인하고 수정할 수 있어요. (총 ${state.cards.length}개)</p>
+      <div class="filter-tabs">
+        <button data-filter="all" class="${filter==='all'?'active':''}">전체</button>
+        <button data-filter="due" class="${filter==='due'?'active':''}">복습 필요</button>
+        <button data-filter="new" class="${filter==='new'?'active':''}">새 카드</button>
+        <button data-filter="learned" class="${filter==='learned'?'active':''}">숙련</button>
+      </div>
+      ${list.length ? `<div class="deck-list">${list.map(cardRowHtml).join("")}</div>` : `<div class="empty-state"><div class="emoji">🗂️</div>단어가 없어요.</div>`}
+      <div style="margin-top:20px;"><button class="btn" id="manualAddBtn">+ 직접 단어 추가</button></div>`;
+  }
+
+  function buildReviewQueue() {
+    const due = state.cards.filter(c => !isNew(c) && isDue(c));
+    const newCards = state.cards.filter(isNew).slice(0, state.settings.newPerDay);
+    const queue = due.concat(newCards);
+    queue.sort((a,b) => (a.due||0) - (b.due||0));
+    return queue;
+  }
+  function highlightTerm(sentence, term) {
+    if (!sentence) return "";
+    const esc = escapeHtml(sentence);
+    const re = new RegExp("\\b(" + term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")\\b", "i");
+    return esc.replace(re, "<mark>$1</mark>");
+  }
+
+  function viewReview() {
+    if (!state.reviewQueue.length) state.reviewQueue = buildReviewQueue();
+    const queue = state.reviewQueue;
+    if (state.reviewIdx >= queue.length) {
+      return `
+        <h1 class="page-title">복습</h1>
+        <div class="empty-state">
+          <div class="emoji">🎉</div>
+          오늘 복습할 카드를 모두 마쳤어요!
+          <div style="margin-top:16px;"><button class="btn" data-go="analyze">새 단어 더 찾으러 가기</button></div>
+        </div>`;
+    }
+    const card = queue[state.reviewIdx];
+    const flipped = state.reviewFlipped;
+    let clozeHtml = "";
+    if (card.context && card.term) {
+      const re = new RegExp("\\b" + card.term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i");
+      clozeHtml = escapeHtml(card.context).replace(re, `<b class="blank">${escapeHtml(card.term)}</b>`);
+    }
+    const progress = Math.round((state.reviewIdx / queue.length) * 100);
+
+    const front = `
+      <span class="badge deck">${card.isPhrase ? "표현" : "단어"}</span>
+      ${clozeHtml ? `<div class="cloze en">${clozeHtml}</div>` : `<div class="hint">이 ${card.isPhrase ? "표현" : "단어"}의 뜻이 기억나시나요?</div>`}
+      <button class="btn primary" id="flipBtn">정답 보기</button>`;
+
+    const back = `
+      <div class="term-big en">${escapeHtml(card.term)}</div>
+      ${card.phonetic ? `<div class="phonetic-row"><span>${escapeHtml(card.phonetic)}</span><button class="speak-btn" id="speakBtn">🔊</button></div>` : `<div class="phonetic-row"><button class="speak-btn" id="speakBtn">🔊</button></div>`}
+      ${card.meaningKo ? `<div>${escapeHtml(card.meaningKo)}</div>` : ""}
+      ${card.meaningEn ? `<div class="hint en">${escapeHtml(card.meaningEn)}</div>` : ""}
+      ${card.example ? `<div class="context-quote en" style="margin-top:8px;">${escapeHtml(card.example)}</div>` : ""}
+      ${card.context ? `<div class="context-quote en" style="margin-top:8px;">${highlightTerm(card.context, card.term)}</div>` : ""}
+    `;
+
+    return `
+      <h1 class="page-title">복습</h1>
+      <p class="page-sub">${state.reviewIdx + 1} / ${queue.length}</p>
+      <div class="review-stage">
+        <div class="review-progress"><div class="bar" style="width:${progress}%"></div></div>
+        <div class="review-card">${flipped ? back : front}</div>
+        ${flipped ? `
+        <div class="grade-row">
+          <button class="grade-btn again" data-grade="again">다시<span class="next">${previewInterval(card,'again')}</span></button>
+          <button class="grade-btn hard" data-grade="hard">어려움<span class="next">${previewInterval(card,'hard')}</span></button>
+          <button class="grade-btn good" data-grade="good">좋음<span class="next">${previewInterval(card,'good')}</span></button>
+          <button class="grade-btn easy" data-grade="easy">쉬움<span class="next">${previewInterval(card,'easy')}</span></button>
+        </div>` : ""}
+      </div>`;
+  }
+
+  function render() {
+    renderRail();
+    const view = document.getElementById("view");
+    if (state.tab === "home") view.innerHTML = viewHome();
+    else if (state.tab === "analyze") view.innerHTML = viewAnalyze();
+    else if (state.tab === "deck") view.innerHTML = viewDeck(state.deckFilter);
+    else if (state.tab === "review") view.innerHTML = viewReview();
+    bindTabClicks();
+  }
+
+  function bindTabClicks() {
+    document.querySelectorAll("[data-tab]").forEach(el => {
+      el.onclick = () => setTab(el.dataset.tab);
+    });
+    document.querySelectorAll("[data-go]").forEach(el => {
+      el.onclick = () => setTab(el.dataset.go);
+    });
+  }
+
+  // ---------- lookup panel ----------
+  function openLookup(term, opts) {
+    opts = opts || {};
+    const isPhrase = !!opts.isPhrase || term.trim().includes(" ");
+    let context = "";
+    if (opts.start !== undefined && state.currentSentences.length) {
+      const s = sentenceAtOffset(state.currentSentences, opts.start);
+      context = s ? s.text : "";
+    } else if (opts.context) context = opts.context;
+    else if (state.currentSentences.length) {
+      const found = state.currentSentences.find(s => s.text.toLowerCase().includes(term.toLowerCase()));
+      if (found) context = found.text;
+    }
+    state.lookup = {
+      mode: opts.editId ? "edit" : "add",
+      editId: opts.editId || null,
+      term: term.trim(),
+      isPhrase,
+      context,
+      phonetic: opts.phonetic || "",
+      meaningEn: opts.meaningEn || "",
+      meaningKo: opts.meaningKo || "",
+      example: opts.example || "",
+      deck: opts.deck || "TED 단어장",
+      loading: !isPhrase && !opts.editId
+    };
+    renderLookupPanel();
+    document.getElementById("lookupOverlay").classList.remove("hidden");
+    if (state.lookup.loading) {
+      fetchDefinition(term).then(data => {
+        if (!state.lookup || state.lookup.term !== term) return;
+        state.lookup.loading = false;
+        if (data) {
+          state.lookup.phonetic = data.phonetic || (data.phonetics && data.phonetics.find(p=>p.text)?.text) || "";
+          const meanings = data.meanings || [];
+          state.lookup.apiMeanings = meanings;
+          const firstDef = meanings[0] && meanings[0].definitions && meanings[0].definitions[0];
+          state.lookup.meaningEn = meanings.slice(0,2).map(m => `[${m.partOfSpeech}] ` + (m.definitions[0]?.definition || "")).join("\n");
+          if (firstDef && firstDef.example && !state.lookup.example) state.lookup.example = firstDef.example;
+        } else {
+          state.lookup.apiMeanings = [];
+        }
+        renderLookupPanel();
+      });
+    }
+  }
+
+  function closeLookup() {
+    document.getElementById("lookupOverlay").classList.add("hidden");
+    state.lookup = null;
+  }
+
+  function renderLookupPanel() {
+    const L = state.lookup;
+    if (!L) return;
+    const decks = Array.from(new Set(state.cards.map(c => c.deck).concat(["TED 단어장"])));
+    let apiBlock = "";
+    if (L.loading) {
+      apiBlock = `<div class="loading-row"><span class="spinner"></span>사전에서 뜻을 찾는 중...</div>`;
+    } else if (L.apiMeanings && L.apiMeanings.length) {
+      apiBlock = L.apiMeanings.slice(0, 3).map(m => `
+        <div class="def-item">
+          <span class="badge pos">${escapeHtml(m.partOfSpeech)}</span>${escapeHtml(m.definitions[0]?.definition || "")}
+          ${m.definitions[0]?.example ? `<div class="ex">"${escapeHtml(m.definitions[0].example)}"</div>` : ""}
+        </div>`).join("");
+    } else if (!L.isPhrase) {
+      apiBlock = `<div class="hint">사전에서 결과를 찾지 못했어요. 아래에 직접 뜻을 입력해주세요.</div>`;
+    }
+
+    document.getElementById("lookupPanel").innerHTML = `
+      <div class="panel-head">
+        <div>
+          <div class="term en">${escapeHtml(L.term)}</div>
+          <span class="badge">${L.isPhrase ? "표현/숙어" : "단어"}</span>
+        </div>
+        <button class="close" id="closePanel">✕</button>
+      </div>
+      ${L.phonetic ? `<div class="phonetic-row"><span class="en">${escapeHtml(L.phonetic)}</span><button class="speak-btn" id="panelSpeak">🔊</button></div>`
+        : `<div class="phonetic-row"><button class="speak-btn" id="panelSpeak">🔊 발음 듣기</button></div>`}
+      ${apiBlock}
+      <div class="divider"></div>
+      <div class="stack">
+        <div>
+          <label class="field-label">뜻 (한국어, 선택)</label>
+          <textarea id="fMeaningKo" rows="2" placeholder="나만의 한국어 뜻 메모">${escapeHtml(L.meaningKo)}</textarea>
+        </div>
+        <div>
+          <label class="field-label">영어 정의</label>
+          <textarea id="fMeaningEn" rows="3" class="en" placeholder="영어 정의">${escapeHtml(L.meaningEn)}</textarea>
+        </div>
+        <div>
+          <label class="field-label">예문</label>
+          <textarea id="fExample" rows="2" class="en" placeholder="예문">${escapeHtml(L.example)}</textarea>
+        </div>
+        ${L.context ? `<div>
+          <label class="field-label">스크립트 속 문장</label>
+          <div class="context-quote en">${escapeHtml(L.context)}</div>
+        </div>` : ""}
+        <div>
+          <label class="field-label">단어장</label>
+          <input type="text" id="fDeck" list="deckList" value="${escapeHtml(L.deck)}">
+          <datalist id="deckList">${decks.map(d => `<option value="${escapeHtml(d)}">`).join("")}</datalist>
+        </div>
+      </div>
+      <div class="row" style="margin-top:18px;">
+        <button class="btn primary block" id="saveCardBtn">${L.mode === "edit" ? "수정 저장" : "카드로 저장"}</button>
+      </div>
+      ${L.mode === "edit" ? `<div class="row" style="margin-top:8px;"><button class="btn block" id="deleteCardBtn">삭제</button></div>` : ""}
+    `;
+
+    document.getElementById("closePanel").onclick = closeLookup;
+    document.getElementById("panelSpeak").onclick = () => speak(L.term);
+    document.getElementById("saveCardBtn").onclick = saveLookupAsCard;
+    const delBtn = document.getElementById("deleteCardBtn");
+    if (delBtn) delBtn.onclick = () => {
+      if (!confirm("이 카드를 삭제할까요?")) return;
+      state.cards = state.cards.filter(c => c.id !== L.editId);
+      persistCards();
+      closeLookup();
+      render();
+      toast("삭제했어요.");
+    };
+    ["fMeaningKo","fMeaningEn","fExample","fDeck"].forEach(id => {
+      document.getElementById(id).addEventListener("input", e => {
+        const map = { fMeaningKo: "meaningKo", fMeaningEn: "meaningEn", fExample: "example", fDeck: "deck" };
+        state.lookup[map[id]] = e.target.value;
+      });
+    });
+  }
+
+  function saveLookupAsCard() {
+    const L = state.lookup;
+    if (!L.term) return;
+    if (L.mode === "edit") {
+      const c = state.cards.find(c => c.id === L.editId);
+      if (c) {
+        c.meaningKo = L.meaningKo; c.meaningEn = L.meaningEn; c.example = L.example; c.deck = L.deck || "TED 단어장";
+      }
+    } else {
+      state.cards.push({
+        id: uid(),
+        term: L.term,
+        isPhrase: L.isPhrase,
+        phonetic: L.phonetic,
+        meaningKo: L.meaningKo,
+        meaningEn: L.meaningEn,
+        example: L.example,
+        context: L.context,
+        deck: L.deck || "TED 단어장",
+        createdAt: Date.now(),
+        due: Date.now(),
+        interval: 0, ease: 2.5, reps: 0, lapses: 0
+      });
+    }
+    persistCards();
+    closeLookup();
+    toast("카드로 저장했어요 ✓");
+    render();
+  }
+
+  // ---------- events: script box (click word / drag select phrase) ----------
+  document.addEventListener("click", e => {
+    const tok = e.target.closest(".tok");
+    if (tok) {
+      const sel = window.getSelection();
+      if (sel && sel.toString().trim().length > 0) return;
+      openLookup(tok.dataset.word, { start: parseInt(tok.dataset.start, 10) });
+      return;
+    }
+    if (e.target.id === "analyzeBtn") {
+      const title = document.getElementById("scriptTitle").value.trim() || "제목 없는 스크립트";
+      const text = document.getElementById("scriptText").value.trim();
+      if (!text) { toast("스크립트를 붙여넣어주세요."); return; }
+      const id = uid();
+      state.scripts.push({ id, title, text, createdAt: Date.now() });
+      persistScripts();
+      state.currentScriptId = id;
+      render();
+      return;
+    }
+    const loadEl = e.target.closest("[data-load]");
+    if (loadEl) { state.currentScriptId = loadEl.dataset.load; render(); return; }
+    const delScriptEl = e.target.closest("[data-delscript]");
+    if (delScriptEl) {
+      e.stopPropagation();
+      const id = delScriptEl.dataset.delscript;
+      if (confirm("이 스크립트를 삭제할까요? (저장된 단어 카드는 유지됩니다)")) {
+        state.scripts = state.scripts.filter(s => s.id !== id);
+        persistScripts();
+        if (state.currentScriptId === id) state.currentScriptId = null;
+        render();
+      }
+      return;
+    }
+    const editEl = e.target.closest("[data-edit]");
+    if (editEl) {
+      const c = state.cards.find(c => c.id === editEl.dataset.edit);
+      if (c) openLookup(c.term, { editId: c.id, isPhrase: c.isPhrase, phonetic: c.phonetic, meaningEn: c.meaningEn, meaningKo: c.meaningKo, example: c.example, context: c.context, deck: c.deck });
+      return;
+    }
+    const delEl = e.target.closest("[data-del]");
+    if (delEl) {
+      if (confirm("이 카드를 삭제할까요?")) {
+        state.cards = state.cards.filter(c => c.id !== delEl.dataset.del);
+        persistCards();
+        render();
+        toast("삭제했어요.");
+      }
+      return;
+    }
+    const filterEl = e.target.closest("[data-filter]");
+    if (filterEl) { state.deckFilter = filterEl.dataset.filter; render(); return; }
+    if (e.target.id === "manualAddBtn") {
+      const term = prompt("추가할 단어 또는 표현을 입력하세요:");
+      if (term && term.trim()) openLookup(term.trim(), {});
+      return;
+    }
+    if (e.target.id === "themeToggle") {
+      const cur = document.documentElement.getAttribute("data-theme");
+      const next = cur === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      save(LS_THEME, next);
+      renderRail();
+      return;
+    }
+    if (e.target.id === "flipBtn") { state.reviewFlipped = true; render(); return; }
+    const gradeEl = e.target.closest("[data-grade]");
+    if (gradeEl) {
+      const card = state.reviewQueue[state.reviewIdx];
+      scheduleCard(card, gradeEl.dataset.grade);
+      persistCards();
+      logReviewToday();
+      state.reviewIdx += 1;
+      state.reviewFlipped = false;
+      render();
+      return;
+    }
+    if (e.target.id === "speakBtn") {
+      const card = state.reviewQueue[state.reviewIdx];
+      if (card) speak(card.term);
+      return;
+    }
+  });
+
+  document.addEventListener("keydown", e => {
+    if (state.tab !== "review") return;
+    if (["INPUT","TEXTAREA"].includes(document.activeElement.tagName)) return;
+    if (e.code === "Space") { e.preventDefault(); if (!state.reviewFlipped) { state.reviewFlipped = true; render(); } }
+    if (state.reviewFlipped) {
+      const map = { "Digit1": "again", "Digit2": "hard", "Digit3": "good", "Digit4": "easy" };
+      if (map[e.code]) {
+        const card = state.reviewQueue[state.reviewIdx];
+        if (card) {
+          scheduleCard(card, map[e.code]);
+          persistCards();
+          logReviewToday();
+          state.reviewIdx += 1;
+          state.reviewFlipped = false;
+          render();
+        }
+      }
+    }
+  });
+
+  document.addEventListener("mouseup", e => {
+    const box = document.getElementById("scriptBox");
+    if (!box || !box.contains(e.target)) { document.getElementById("selToolbar").classList.add("hidden"); return; }
+    const sel = window.getSelection();
+    const text = sel.toString().trim();
+    const toolbar = document.getElementById("selToolbar");
+    if (text && text.split(/\s+/).length >= 2 && text.length < 80) {
+      const range = sel.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      toolbar.style.left = (rect.left + rect.width / 2) + "px";
+      toolbar.style.top = (rect.top + window.scrollY) + "px";
+      toolbar.classList.remove("hidden");
+      toolbar.dataset.phrase = text;
+    } else {
+      toolbar.classList.add("hidden");
+    }
+  });
+  document.getElementById("selAddBtn").addEventListener("click", () => {
+    const toolbar = document.getElementById("selToolbar");
+    const phrase = toolbar.dataset.phrase;
+    toolbar.classList.add("hidden");
+    window.getSelection().removeAllRanges();
+    if (phrase) openLookup(phrase, { isPhrase: true });
+  });
+
+  // ---------- init ----------
+  const savedTheme = load(LS_THEME, null);
+  if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+  render();
+})();
+</script>
+</body>
+</html>
